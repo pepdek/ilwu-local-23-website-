@@ -115,3 +115,62 @@
     background-size: 18px 18px;
   }
 }
+
+/* ─────────────────────────────────────────────
+   MOBILE — max-width 768px
+   Desktop is unaffected by everything below
+───────────────────────────────────────────── */
+
+/* 1. Hero image: shift focal point to cranes / waterfront */
+@media (max-width: 768px) {
+  .hero-bg {
+    background-position: 70% 75% !important;
+  }
+}
+
+/* 2. Hero content: move to top so countdown is immediately visible */
+@media (max-width: 768px) {
+  .hero-content {
+    justify-content: flex-start !important;
+    padding: 80px 6% 1.5rem !important;
+  }
+}
+
+/* 3. Countdown tiles: flex row, 40px numeral, 9px label */
+@media (max-width: 768px) {
+  .countdown-tiles {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    gap: 8px !important;
+    max-width: 100% !important;
+    grid-template-columns: unset !important;
+  }
+  .countdown-tile {
+    flex: 1 !important;
+    max-width: 80px !important;
+    min-width: 0 !important;
+  }
+  .countdown-numeral {
+    font-size: 2.5rem !important; /* 40px */
+  }
+  .countdown-unit-label {
+    font-size: 9px !important;
+  }
+}
+
+/* 4. Mobile bottom nav — shown on mobile, hidden on desktop */
+.mobile-bottom-nav {
+  display: flex;
+}
+@media (min-width: 769px) {
+  .mobile-bottom-nav {
+    display: none !important;
+  }
+}
+
+/* 5. Main content: clear the fixed bottom bar on mobile */
+@media (max-width: 768px) {
+  .main-content {
+    padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+  }
+}

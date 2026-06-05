@@ -30,7 +30,7 @@ export default function Countdown() {
 
   if (time.past) {
     return (
-      <p style={{ color: '#fff216' }} className="font-display text-2xl tracking-widest uppercase">
+      <p style={{ color: '#fff216' }} className="font-display text-2xl tracking-widest uppercase mb-8">
         Today - Bloody Thursday Commemoration
       </p>
     )
@@ -46,21 +46,22 @@ export default function Countdown() {
         Bloody Thursday · July 5 · Spanaway Lake Park
       </p>
 
-      {/* Tiles — 2×2 on mobile, row on 480px+ */}
+      {/* Tiles — flex row on all sizes, 2×2 removed per mobile spec */}
       <div
-        className="grid gap-2"
-        style={{ gridTemplateColumns: 'repeat(4,minmax(0,1fr))', maxWidth: '320px' }}
+        className="countdown-tiles"
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
+          gap: '10px',
+          maxWidth: '340px',
+        }}
       >
-        <style>{`
-          @media (max-width: 479px) {
-            .countdown-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; max-width: 200px !important; }
-          }
-        `}</style>
         {units.map(u => (
           <div
             key={u.label}
-            className="countdown-grid flex flex-col items-center justify-center aspect-square border border-white/15"
+            className="countdown-tile flex flex-col items-center justify-center border border-white/15"
             style={{
+              aspectRatio: '1 / 1',
               background: 'rgba(0,48,91,0.78)',
               backdropFilter: 'blur(10px)',
               WebkitBackdropFilter: 'blur(10px)',
@@ -68,13 +69,13 @@ export default function Countdown() {
             }}
           >
             <span
-              className="font-display tabular-nums leading-none"
-              style={{ color: '#fff216', fontSize: 'clamp(1.75rem, 4vw, 3.5rem)' }}
+              className="countdown-numeral font-display tabular-nums leading-none"
+              style={{ color: '#fff216', fontSize: 'clamp(2rem, 4.5vw, 3.5rem)' }}
             >
               {String(u.value).padStart(2, '0')}
             </span>
             <span
-              className="font-mono text-white uppercase mt-1"
+              className="countdown-unit-label font-mono text-white uppercase mt-1"
               style={{ fontSize: '9px', letterSpacing: '0.12em' }}
             >
               {u.label}

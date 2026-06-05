@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
+import MobileBottomNav from './components/MobileBottomNav'
 import Home from './pages/Home'
 import MemberHub from './pages/MemberHub'
 import News from './pages/News'
@@ -16,7 +17,7 @@ export default function App() {
       <ScrollToTop />
       <div className="min-h-screen bg-ilwu-dark flex flex-col">
         <Navbar />
-        <main className="flex-1">
+        <main className="flex-1 main-content">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/member-hub" element={<MemberHub />} />
@@ -28,6 +29,7 @@ export default function App() {
           </Routes>
         </main>
         <Footer />
+        <MobileBottomNav />
       </div>
     </BrowserRouter>
   )

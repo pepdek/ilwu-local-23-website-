@@ -40,7 +40,7 @@ export default function Home() {
       >
         {/* Background photo */}
         <div
-          className="absolute inset-0"
+          className="hero-bg absolute inset-0"
           style={{
             backgroundImage: "url('/hero.jpg')",
             backgroundSize: 'cover',
@@ -55,9 +55,9 @@ export default function Home() {
           }}
         />
 
-        {/* Content — bottom-left */}
+        {/* Content — bottom-left on desktop, top on mobile */}
         <div
-          className="relative z-10 flex flex-col justify-end h-full"
+          className="hero-content relative z-10 flex flex-col justify-end h-full"
           style={{ padding: '0 10% 8% 10%' }}
         >
           <Countdown />
