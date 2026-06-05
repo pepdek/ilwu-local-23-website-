@@ -3,109 +3,114 @@
 @tailwind utilities;
 
 @layer base {
-  * { box-sizing: border-box; }
+  *, *::before, *::after { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body {
     font-family: 'DM Sans', sans-serif;
     background-color: #00305b;
-    color: #FFFFFF;
+    color: #ffffff;
     margin: 0;
     padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   #root { width: 100%; min-height: 100vh; }
 }
 
 @layer components {
   /* ── Buttons ── */
-  .btn-gold {
+  .btn-yellow {
     background-color: #fff216;
     color: #00305b;
     font-family: 'DM Sans', sans-serif;
     font-weight: 700;
-    padding: 0.875rem 1.75rem;
+    padding: 0.875rem 2rem;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
     font-size: 0.875rem;
-    transition: background-color 0.2s, color 0.2s;
-    display: inline-block;
+    transition: background-color 0.15s, transform 0.1s;
+    display: inline-flex;
+    align-items: center;
     cursor: pointer;
     text-decoration: none;
     border: none;
+    line-height: 1;
+    white-space: nowrap;
   }
-  .btn-gold:hover { background-color: #ffe800; }
+  .btn-yellow:hover { background-color: #ffe800; transform: translateY(-1px); }
+  .btn-yellow:active { transform: translateY(0); }
 
-  .btn-outline-white {
-    border: 2px solid #ffffff;
+  .btn-ghost-white {
+    background-color: transparent;
     color: #ffffff;
     font-family: 'DM Sans', sans-serif;
     font-weight: 600;
-    padding: 0.875rem 1.75rem;
+    padding: 0.875rem 2rem;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
     font-size: 0.875rem;
-    transition: background-color 0.2s, color 0.2s;
-    display: inline-block;
+    transition: background-color 0.15s, color 0.15s;
+    display: inline-flex;
+    align-items: center;
     cursor: pointer;
     text-decoration: none;
-    background-color: transparent;
+    border: 2px solid rgba(255,255,255,0.6);
+    line-height: 1;
+    white-space: nowrap;
   }
-  .btn-outline-white:hover { background-color: #ffffff; color: #00305b; }
+  .btn-ghost-white:hover { background-color: rgba(255,255,255,0.12); border-color: #ffffff; }
 
-  .btn-outline-navy {
-    border: 2px solid #00305b;
+  .btn-ghost-navy {
+    background-color: transparent;
     color: #00305b;
     font-family: 'DM Sans', sans-serif;
     font-weight: 600;
-    padding: 0.875rem 1.75rem;
+    padding: 0.875rem 2rem;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
     font-size: 0.875rem;
-    transition: background-color 0.2s, color 0.2s;
-    display: inline-block;
+    transition: background-color 0.15s, color 0.15s;
+    display: inline-flex;
+    align-items: center;
     cursor: pointer;
     text-decoration: none;
-    background-color: transparent;
+    border: 2px solid #00305b;
+    line-height: 1;
   }
-  .btn-outline-navy:hover { background-color: #00305b; color: #ffffff; }
+  .btn-ghost-navy:hover { background-color: #00305b; color: #ffffff; }
 
-  /* ── Labels & accents ── */
-  .section-label {
+  /* ── Labels ── */
+  .eyebrow {
     font-family: 'Bebas Neue', sans-serif;
     color: #fff216;
-    letter-spacing: 0.25em;
-    font-size: 0.875rem;
+    letter-spacing: 0.22em;
+    font-size: 0.8125rem;
     text-transform: uppercase;
     display: block;
-  }
-  .gold-rule {
-    width: 3rem;
-    height: 0.25rem;
-    background-color: #fff216;
-    margin-bottom: 1rem;
+    line-height: 1;
   }
 
-  /* ── Texture patterns ── */
-  .pattern-dots {
-    background-image: radial-gradient(circle, rgba(255,255,255,0.055) 1px, transparent 1px);
+  .yellow-rule {
+    display: block;
+    width: 2.5rem;
+    height: 3px;
+    background-color: #fff216;
+    margin-bottom: 1.25rem;
+    flex-shrink: 0;
+  }
+
+  /* ── Background textures ── */
+  .texture-dots {
+    background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
     background-size: 22px 22px;
   }
-  .pattern-lines {
+  .texture-lines {
     background-image: repeating-linear-gradient(
-      -45deg,
-      transparent 0,
-      transparent 6px,
-      rgba(255,255,255,0.028) 6px,
-      rgba(255,255,255,0.028) 7px
+      -45deg, transparent 0, transparent 6px,
+      rgba(255,255,255,0.025) 6px, rgba(255,255,255,0.025) 7px
     );
   }
-  .pattern-grid {
-    background-image:
-      linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
-    background-size: 40px 40px;
-  }
-  /* Blue-tinted dots for medium-blue sections */
-  .pattern-blue-dots {
+  .texture-dots-dark {
     background-image: radial-gradient(circle, rgba(0,48,91,0.12) 1px, transparent 1px);
     background-size: 18px 18px;
   }
