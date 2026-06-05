@@ -9,6 +9,7 @@ export default function Footer() {
         <div style={{ height: '3px', background: '#377dbd', marginBottom: '3rem', width: '3rem' }} />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
+
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3 mb-5">
@@ -27,26 +28,24 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Links */}
+          {/* Quick links */}
           <div>
             <h4 className="font-display text-white tracking-widest text-sm uppercase mb-5" style={{ letterSpacing: '0.15em' }}>
               Quick Links
             </h4>
             <ul className="space-y-2.5">
               {[
-                { to: '/member-hub',  label: 'Member Hub'           },
-                { to: '/news',        label: 'News & Announcements' },
-                { to: '/your-rights', label: 'Your Rights'          },
-                { to: '/leadership',  label: 'Leadership'           },
-                { to: '/history',     label: 'Our History'          },
-                { to: '/contact',     label: 'Contact'              },
+                { to: '/member-hub',  label: 'Member Hub',          internal: true },
+                { to: '/news',        label: 'News & Announcements', internal: true },
+                { to: '/your-rights', label: 'Your Rights',          internal: true },
+                { to: '/leadership',  label: 'Leadership',           internal: true },
+                { to: '/history',     label: 'Our History',          internal: true },
+                { to: '/contact',     label: 'Contact',              internal: true },
               ].map(l => (
                 <li key={l.to}>
                   <Link
                     to={l.to}
-                    className="font-body text-sm text-white/50 transition-colors"
-                    onMouseEnter={e => { e.currentTarget.style.color = '#fff216' }}
-                    onMouseLeave={e => { e.currentTarget.style.color = '' }}
+                    className="font-body text-sm text-white/50 transition-colors hover:text-[#fff216]"
                   >
                     {l.label}
                   </Link>
@@ -55,7 +54,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Contact */}
+          {/* Contact & affiliates */}
           <div>
             <h4 className="font-display text-white tracking-widest text-sm uppercase mb-5" style={{ letterSpacing: '0.15em' }}>
               Contact
@@ -74,18 +73,17 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2">
               {[
-                { href: 'https://www.ilwu.org', label: 'ILWU International' },
-                { href: 'https://www.pmaw.org', label: 'Pacific Maritime Association' },
-                { href: 'https://www.wslc.org', label: 'WA State Labor Council' },
+                { href: 'https://www.ilwu.org',           label: 'ILWU International'            },
+                { href: 'https://www.pmanet.org/',        label: 'Pacific Maritime Association'  },
+                { href: 'https://www.wslc.org',           label: 'WA State Labor Council'        },
+                { href: 'http://www.benefitplans.org',    label: 'Medical Benefits (ILWU-PMA)'  },
               ].map(l => (
                 <li key={l.href}>
                   <a
                     href={l.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-body text-sm text-white/50 transition-colors flex items-center gap-1.5"
-                    onMouseEnter={e => { e.currentTarget.style.color = '#fff216' }}
-                    onMouseLeave={e => { e.currentTarget.style.color = '' }}
+                    className="font-body text-sm text-white/50 transition-colors hover:text-[#fff216] flex items-center gap-1.5"
                   >
                     {l.label}
                     <svg className="w-3 h-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -98,7 +96,7 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom */}
+        {/* Bottom bar */}
         <div style={{ borderTop: '1px solid rgba(55,125,189,0.2)', paddingTop: '1.5rem' }}
           className="flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-white/30 font-body text-xs">

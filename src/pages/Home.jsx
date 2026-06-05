@@ -2,6 +2,9 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Countdown from '../components/Countdown'
 
+const DISPATCH_APP = 'https://23.pepdekker.com'
+const PETITION_URL = 'https://actionnetwork.org/petitions/husky-ai?source=direct_link&'
+
 const dates = [
   { day: '12', month: 'JUN', label: 'Pull Date',         desc: 'Check your dispatch status'             },
   { day: '16', month: 'JUN', label: 'E-Board Meeting',   desc: 'Executive Board, dispatch hall'          },
@@ -105,7 +108,7 @@ export default function Home() {
                 families, and communities. Sign the petition. Make your voice heard.
               </p>
               <div className="flex flex-wrap gap-3">
-                <a href="https://www.ilwu.org" target="_blank" rel="noopener noreferrer" className="btn-yellow">
+                <a href="https://actionnetwork.org/petitions/husky-ai?source=direct_link&" target="_blank" rel="noopener noreferrer" className="btn-yellow">
                   Sign the Petition
                 </a>
                 <ShareButton />

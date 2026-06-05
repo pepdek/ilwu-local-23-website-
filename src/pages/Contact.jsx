@@ -1,8 +1,8 @@
 const officers = [
-  { name: 'Jared Faker',  title: 'President',          phone: '(253) 572-0220', email: 'president@ilwu23.com'      },
-  { name: 'Brock Graber', title: 'Vice President',      phone: '(253) 572-0220', email: 'vicepresident@ilwu23.com'  },
-  { name: 'Conrad Spell', title: 'Secretary-Treasurer', phone: '(253) 572-0220', email: 'secretary@ilwu23.com'      },
-  { name: 'Wyatt Ellis',  title: 'Sergeant-at-Arms',   phone: '(253) 572-0220', email: 'soa@ilwu23.com'            },
+  { name: 'Jared Faker',  title: 'President',       phone: '(253) 651-6041', email: 'jfaker@ilwulocal23.org'  },
+  { name: 'Brock Graber', title: 'Vice President',   phone: '(253) 227-0859', email: 'bgraber@ilwulocal23.org' },
+  { name: 'Conrad Spell', title: 'Business Agent',   phone: '(253) 625-4255', email: 'cspell@ilwulocal23.org'  },
+  { name: 'Wyatt Ellis',  title: 'Business Agent',   phone: '(253) 392-5205', email: 'wellis@ilwulocal23.org'  },
 ]
 
 export default function Contact() {
@@ -13,7 +13,7 @@ export default function Contact() {
       <section className="texture-dots" style={{ background: '#00305b', paddingTop: '8rem', paddingBottom: '4rem', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
           <span className="eyebrow mb-3">Get in Touch</span>
-          <h1 className="font-display text-white uppercase leading-none mb-4" style={{ fontSize: 'clamp(3rem, 7vw, 5rem)' }}>
+          <h1 className="font-display text-white uppercase leading-none mb-4" style={{ fontSize: 'clamp(3rem,7vw,5rem)' }}>
             Contact
           </h1>
           <p className="text-white/60 font-body text-lg max-w-xl">
@@ -21,6 +21,31 @@ export default function Contact() {
           </p>
         </div>
       </section>
+
+      {/* Casual Rep callout - prominent */}
+      <div style={{ background: '#fff216', padding: '1rem 0' }}>
+        <div className="max-w-7xl mx-auto px-6 lg:px-10">
+          <div className="flex flex-wrap items-center gap-4 justify-between">
+            <div className="flex items-center gap-3">
+              <div style={{ width: '3px', height: '2.5rem', background: '#00305b', flexShrink: 0 }} />
+              <div>
+                <p className="font-display uppercase text-[#00305b]" style={{ fontSize: '0.75rem', letterSpacing: '0.15em' }}>
+                  ID-Casual Representative · As of 6/1/26
+                </p>
+                <p className="font-body font-bold text-[#00305b] text-lg leading-tight">Kevin Lindstrom</p>
+              </div>
+            </div>
+            <div className="flex flex-wrap gap-4">
+              <a href="tel:+12534059508" className="font-mono font-semibold text-[#00305b] hover:underline" style={{ fontSize: '0.9375rem' }}>
+                (253) 405-9508
+              </a>
+              <a href="mailto:klindstrom@ilwulocal23.org" className="font-mono font-semibold text-[#00305b] hover:underline" style={{ fontSize: '0.9375rem' }}>
+                klindstrom@ilwulocal23.org
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <section style={{ padding: '4rem 0' }}>
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
@@ -32,16 +57,25 @@ export default function Contact() {
                 <span className="yellow-rule" style={{ background: '#00305b' }} />
                 <p className="font-display uppercase tracking-widest text-xs mb-4" style={{ color: '#377dbd' }}>Dispatch Hall</p>
                 <div style={{ background: '#ffffff', border: '1px solid #E8E5DC', padding: '1.75rem' }} className="space-y-5 shadow-sm">
-                  {[
-                    { label: 'Address',      content: <address className="not-italic font-body text-sm leading-relaxed" style={{ color: '#0F0F0F', opacity: 0.65 }}>3600 Port of Tacoma Rd<br />Tacoma, WA 98424</address> },
-                    { label: 'Phone',        content: <a href="tel:+12535720220" className="font-mono font-medium transition-colors hover:text-[#377dbd]" style={{ color: '#00305b', fontSize: '1.5rem', letterSpacing: '0.03em' }}>(253) 572-0220</a> },
-                    { label: 'Office Hours', content: <div className="font-body text-sm space-y-1" style={{ color: '#0F0F0F', opacity: 0.65 }}><p>Monday - Friday: 8:00 AM - 4:00 PM</p><p style={{ opacity: 0.5 }}>Closed Saturdays, Sundays &amp; Holidays</p></div> },
-                  ].map(row => (
-                    <div key={row.label}>
-                      <h3 className="font-body font-bold text-xs uppercase tracking-wider mb-2" style={{ color: '#00305b' }}>{row.label}</h3>
-                      {row.content}
+                  <div>
+                    <h3 className="font-body font-bold text-xs uppercase tracking-wider mb-2" style={{ color: '#00305b' }}>Address</h3>
+                    <address className="not-italic font-body text-sm leading-relaxed" style={{ color: '#0F0F0F', opacity: 0.65 }}>
+                      3600 Port of Tacoma Rd<br />Tacoma, WA 98424
+                    </address>
+                  </div>
+                  <div>
+                    <h3 className="font-body font-bold text-xs uppercase tracking-wider mb-2" style={{ color: '#00305b' }}>Phone</h3>
+                    <a href="tel:+12535720220" className="font-mono font-medium transition-colors hover:text-[#377dbd]" style={{ color: '#00305b', fontSize: '1.5rem' }}>
+                      (253) 572-0220
+                    </a>
+                  </div>
+                  <div>
+                    <h3 className="font-body font-bold text-xs uppercase tracking-wider mb-2" style={{ color: '#00305b' }}>Office Hours</h3>
+                    <div className="font-body text-sm space-y-1" style={{ color: '#0F0F0F', opacity: 0.65 }}>
+                      <p>Monday - Friday: 8:00 AM - 4:00 PM</p>
+                      <p style={{ opacity: 0.5 }}>Closed Saturdays, Sundays &amp; Holidays</p>
                     </div>
-                  ))}
+                  </div>
                 </div>
               </div>
 
