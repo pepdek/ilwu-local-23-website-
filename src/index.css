@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background-color: #0F0F0F;
+    color: #FFFFFF;
+    margin: 0;
+    padding: 0;
+  }
+  #root {
+    width: 100%;
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  .btn-red {
+    @apply bg-ilwu-red hover:bg-ilwu-red-dark text-white font-body font-600 px-6 py-3 uppercase tracking-widest text-sm transition-colors duration-200;
+  }
+  .btn-outline {
+    @apply border-2 border-white hover:bg-white hover:text-ilwu-black text-white font-body font-600 px-6 py-3 uppercase tracking-widest text-sm transition-colors duration-200;
+  }
+  .section-label {
+    @apply font-display text-ilwu-red tracking-widest text-sm uppercase;
+  }
+}
