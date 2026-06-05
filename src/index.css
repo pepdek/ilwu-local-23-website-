@@ -3,15 +3,11 @@
 @tailwind utilities;
 
 @layer base {
-  * {
-    box-sizing: border-box;
-  }
-  html {
-    scroll-behavior: smooth;
-  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   body {
     font-family: 'DM Sans', sans-serif;
-    background-color: #0F0F0F;
+    background-color: #1B3A6B;
     color: #FFFFFF;
     margin: 0;
     padding: 0;
@@ -23,13 +19,74 @@
 }
 
 @layer components {
-  .btn-red {
-    @apply bg-ilwu-red hover:bg-ilwu-red-dark text-white font-body font-600 px-6 py-3 uppercase tracking-widest text-sm transition-colors duration-200;
+  .btn-gold {
+    background-color: #F5C400;
+    color: #1B3A6B;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    padding: 0.875rem 1.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.875rem;
+    transition: background-color 0.2s, color 0.2s;
+    display: inline-block;
+    cursor: pointer;
+    text-decoration: none;
+    border: none;
   }
-  .btn-outline {
-    @apply border-2 border-white hover:bg-white hover:text-ilwu-black text-white font-body font-600 px-6 py-3 uppercase tracking-widest text-sm transition-colors duration-200;
+  .btn-gold:hover {
+    background-color: #fde047;
+  }
+  .btn-outline-white {
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    padding: 0.875rem 1.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.875rem;
+    transition: background-color 0.2s, color 0.2s;
+    display: inline-block;
+    cursor: pointer;
+    text-decoration: none;
+    background-color: transparent;
+  }
+  .btn-outline-white:hover {
+    background-color: #ffffff;
+    color: #1B3A6B;
+  }
+  .btn-outline-navy {
+    border: 2px solid #1B3A6B;
+    color: #1B3A6B;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    padding: 0.875rem 1.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.875rem;
+    transition: background-color 0.2s, color 0.2s;
+    display: inline-block;
+    cursor: pointer;
+    text-decoration: none;
+    background-color: transparent;
+  }
+  .btn-outline-navy:hover {
+    background-color: #1B3A6B;
+    color: #ffffff;
   }
   .section-label {
-    @apply font-display text-ilwu-red tracking-widest text-sm uppercase;
+    font-family: 'Bebas Neue', sans-serif;
+    color: #F5C400;
+    letter-spacing: 0.25em;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    display: block;
+  }
+  .gold-rule {
+    width: 3rem;
+    height: 0.25rem;
+    background-color: #F5C400;
+    margin-bottom: 1rem;
   }
 }

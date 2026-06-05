@@ -4,14 +4,17 @@ export default {
   theme: {
     extend: {
       colors: {
-        'ilwu-red': '#C41230',
-        'ilwu-red-dark': '#9E0E26',
-        'ilwu-red-light': '#E8192E',
-        'ilwu-black': '#0F0F0F',
+        'ilwu-navy':      '#1B3A6B',
+        'ilwu-navy-dark': '#142D56',
+        'ilwu-gold':      '#F5C400',
+        'ilwu-dark':      '#0F0F0F',
+        'ilwu-bg':        '#F7F6F2',
+        'ilwu-border':    '#E8E5DC',
       },
       fontFamily: {
         display: ['"Bebas Neue"', 'sans-serif'],
-        body: ['"DM Sans"', 'sans-serif'],
+        body:    ['"DM Sans"', 'sans-serif'],
+        mono:    ['"DM Mono"', 'ui-monospace', 'monospace'],
       },
     },
   },
