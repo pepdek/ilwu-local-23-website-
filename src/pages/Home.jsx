@@ -44,14 +44,14 @@ export default function Home() {
           style={{
             backgroundImage: "url('/hero.jpg')",
             backgroundSize: 'cover',
-            backgroundPosition: 'center 25%',
+            backgroundPosition: 'center 60%',
           }}
         />
-        {/* Gradient — mountain and sky breathe at top, text readable at bottom */}
+        {/* Gradient — port cranes prominent, text readable at bottom */}
         <div
           className="absolute inset-0"
           style={{
-            background: 'linear-gradient(to top, rgba(0,48,91,0.82) 0%, rgba(0,48,91,0.35) 35%, rgba(0,48,91,0.10) 65%, rgba(0,48,91,0.05) 100%)',
+            background: 'linear-gradient(to top, rgba(0,48,91,0.82) 0%, rgba(0,48,91,0.55) 40%, rgba(0,48,91,0.15) 100%)',
           }}
         />
 
@@ -75,7 +75,7 @@ export default function Home() {
 
           <p
             className="font-body"
-            style={{ color: '#377dbd', fontSize: '1.0625rem', marginBottom: '2rem', fontWeight: 500 }}
+            style={{ color: '#ffffff', fontSize: '1.0625rem', marginBottom: '2rem', fontWeight: 500 }}
           >
             ILWU Local 23 · Port of Tacoma · Since 1934
           </p>
