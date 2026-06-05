@@ -68,25 +68,21 @@ export default function MemberHub() {
   return (
     <div className="font-body min-h-screen bg-ilwu-bg">
 
-      {/* Header */}
-      <section
-        className="pt-28 pb-16 bg-ilwu-navy"
-        style={{
-          backgroundImage: `linear-gradient(to bottom, rgba(27,58,107,0.85) 0%, rgba(27,58,107,0.98) 100%), url('https://images.unsplash.com/photo-1543946207-39bd91e70ca7?w=1400&q=80&auto=format&fit=crop')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      >
+      {/* Header - navy with pattern */}
+      <section className="pt-28 pb-16 bg-ilwu-navy pattern-dots">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="section-label mb-3">Members Only</p>
+          <div className="flex items-center gap-5 mb-6">
+            <img src="/ilwu-logo.avif" alt="ILWU" className="w-12 h-12 object-contain opacity-90" />
+            <p className="section-label">Members Only</p>
+          </div>
           <h1 className="font-display text-white text-5xl sm:text-7xl uppercase leading-none mb-4">Member Hub</h1>
-          <p className="text-white/65 font-body text-lg max-w-xl">
+          <p className="text-white/60 font-body text-lg max-w-xl">
             Everything you need, in one place. No hunting through dropdowns.
           </p>
         </div>
       </section>
 
-      {/* Cards */}
+      {/* Cards - light section (10%) */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -96,24 +92,25 @@ export default function MemberHub() {
                 href={c.href}
                 target={c.ext ? '_blank' : undefined}
                 rel={c.ext ? 'noopener noreferrer' : undefined}
-                className="group bg-white border border-ilwu-border hover:border-ilwu-navy/40 p-6 flex flex-col gap-4 transition-all shadow-sm hover:shadow-md"
+                className="group bg-white border border-ilwu-border hover:border-ilwu-blue/50 p-6 flex flex-col gap-4 transition-all shadow-sm hover:shadow-md"
               >
-                <div className="w-11 h-11 bg-ilwu-navy/8 group-hover:bg-ilwu-navy/15 flex items-center justify-center text-ilwu-navy transition-colors">
+                <div className="w-11 h-11 bg-ilwu-navy/8 group-hover:bg-ilwu-blue/15 flex items-center justify-center text-ilwu-navy group-hover:text-ilwu-blue transition-colors">
                   {c.icon}
                 </div>
                 <div className="flex-1">
                   <div className="flex items-start justify-between gap-2">
-                    <h3 className="font-body font-bold text-ilwu-navy text-base leading-snug group-hover:text-ilwu-navy-dark transition-colors">
+                    <h3 className="font-body font-bold text-ilwu-navy text-base leading-snug group-hover:text-ilwu-blue transition-colors">
                       {c.label}
                     </h3>
                     {c.ext && (
-                      <svg className="w-3.5 h-3.5 text-ilwu-navy/30 group-hover:text-ilwu-gold flex-shrink-0 mt-0.5 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <svg className="w-3.5 h-3.5 text-ilwu-navy/25 group-hover:text-ilwu-gold flex-shrink-0 mt-0.5 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                       </svg>
                     )}
                   </div>
                   <p className="text-ilwu-dark/55 text-sm font-body mt-1.5 leading-relaxed">{c.desc}</p>
                 </div>
+                {/* Yellow accent bar on hover */}
                 <div className="w-full h-0.5 bg-ilwu-gold scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-200" />
               </a>
             ))}
@@ -121,14 +118,14 @@ export default function MemberHub() {
         </div>
       </section>
 
-      {/* Contact strip */}
-      <section className="border-t border-ilwu-border py-12 bg-ilwu-navy">
+      {/* Contact strip - blue (30%) */}
+      <section className="border-t border-ilwu-border py-12 bg-ilwu-blue pattern-blue-dots">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-white/50 font-body text-sm mb-2">Need help? Contact the dispatch hall.</p>
-          <a href="tel:+12535720220" className="font-mono text-ilwu-gold text-3xl tracking-wide hover:text-yellow-300 transition-colors">
+          <p className="text-white/55 font-body text-sm mb-2">Need help? Contact the dispatch hall.</p>
+          <a href="tel:+12535720220" className="font-mono text-ilwu-gold text-3xl tracking-wide hover:text-yellow-200 transition-colors">
             (253) 572-0220
           </a>
-          <p className="text-white/35 font-body text-xs mt-2 uppercase tracking-wider">3600 Port of Tacoma Rd · Tacoma WA 98424 · Mon–Fri 8am–4pm</p>
+          <p className="text-white/35 font-body text-xs mt-2 uppercase tracking-wider">3600 Port of Tacoma Rd · Tacoma WA 98424 · Mon-Fri 8am-4pm</p>
         </div>
       </section>
     </div>
