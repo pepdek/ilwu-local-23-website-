@@ -6,9 +6,10 @@ const DISPATCH_APP = 'https://23.pepdekker.com'
 const PETITION_URL = 'https://actionnetwork.org/petitions/husky-ai?source=direct_link&'
 
 const dates = [
-  { day: '12', month: 'JUN', label: 'Pull Date',         desc: 'Check your dispatch status'             },
-  { day: '16', month: 'JUN', label: 'E-Board Meeting',   desc: 'Executive Board, dispatch hall'          },
-  { day: '18', month: 'JUN', label: 'Stop Work Meeting', desc: 'All members required to attend'          },
+  { day: '12', month: 'JUN', label: 'Pull Date',                    desc: 'Check your dispatch status'             },
+  { day: '18', month: 'JUN', label: 'Stop Work Meeting',            desc: 'All members required to attend'         },
+  { day: '05', month: 'JUL', label: 'Bloody Thursday',              desc: 'Annual commemoration · Spanaway Lake Park' },
+  { day: '19', month: 'JUL', label: "Pat Casey's Celebration of Life", desc: 'Owen Beach Pavilion · 1:00 – 3:00 pm · Point Defiance' },
 ]
 
 function ShareButton() {
@@ -47,11 +48,14 @@ export default function Home() {
             backgroundPosition: 'center 60%',
           }}
         />
-        {/* Gradient — port cranes prominent, text readable at bottom */}
+        {/* Gradient — two layers: bottom-to-top for text, subtle left panel for headline zone */}
         <div
           className="absolute inset-0"
           style={{
-            background: 'linear-gradient(to top, rgba(0,48,91,0.82) 0%, rgba(0,48,91,0.55) 40%, rgba(0,48,91,0.15) 100%)',
+            background: [
+              'linear-gradient(to right, rgba(0,48,91,0.30) 0%, transparent 55%)',
+              'linear-gradient(to top, rgba(0,48,91,0.88) 0%, rgba(0,48,91,0.42) 28%, rgba(0,48,91,0.06) 58%, transparent 85%)',
+            ].join(', '),
           }}
         />
 
@@ -146,7 +150,7 @@ export default function Home() {
               Upcoming Dates
             </h2>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             {dates.map((d, i) => (
               <div
                 key={i}

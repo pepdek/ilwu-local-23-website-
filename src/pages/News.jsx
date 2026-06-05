@@ -2,6 +2,12 @@ const PETITION_URL = 'https://actionnetwork.org/petitions/husky-ai?source=direct
 
 const items = [
   {
+    day: '19', month: 'JUL', year: '2026', cat: 'Memorial', catColor: '#374151',
+    title: "Pat Casey's Celebration of Life",
+    body: "Join us to celebrate the life of Pat Casey. Family, friends, and fellow union members are welcome. Owen Beach Pavilion, Point Defiance Park · 5605 Owen Beach Rd, Tacoma, WA 98407 · 1:00 PM – 3:00 PM.",
+    link: { label: 'Add to Google Calendar', href: 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Pat+Casey%27s+Celebration+of+Life&dates=20260719T130000/20260719T150000&location=Owen+Beach+Pavilion,+5605+Owen+Beach+Rd,+Tacoma,+WA+98407' },
+  },
+  {
     day: '05', month: 'JUL', year: '2026', cat: 'Event', catColor: '#377dbd',
     title: 'Bloody Thursday Commemoration - Spanaway Lake Park',
     body: 'ILWU Local 23 invites all members, families, and supporters to the annual Bloody Thursday commemoration at Spanaway Lake Park. We gather to honor the six workers who gave their lives in 1934. Speakers, food, and fellowship. Bring the family.',

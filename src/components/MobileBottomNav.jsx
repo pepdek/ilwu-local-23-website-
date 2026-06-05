@@ -1,3 +1,4 @@
+import { createPortal } from 'react-dom'
 import { Link, useLocation } from 'react-router-dom'
 
 const base = {
@@ -7,13 +8,13 @@ const base = {
   alignItems: 'center',
   justifyContent: 'center',
   gap: '3px',
-  height: '100%',
+  minHeight: '64px',
   textDecoration: 'none',
   background: 'transparent',
   border: 'none',
   cursor: 'pointer',
   WebkitTapHighlightColor: 'transparent',
-  transition: 'background 0.1s',
+  transition: 'background 0.12s',
 }
 
 function BtnLabel({ children }) {
@@ -34,7 +35,7 @@ function BtnLabel({ children }) {
   )
 }
 
-export default function MobileBottomNav() {
+function MobileBottomNavInner() {
   const { pathname } = useLocation()
   const hubActive = pathname === '/member-hub'
 
@@ -46,40 +47,41 @@ export default function MobileBottomNav() {
         bottom: 0,
         left: 0,
         right: 0,
-        zIndex: 100,
+        zIndex: 9999,
         background: '#00305b',
         borderTop: '2px solid #377dbd',
-        /* Total height = 64px content + safe area for home indicator */
         paddingBottom: 'env(safe-area-inset-bottom, 0px)',
         display: 'flex',
-        height: 'auto',
-        minHeight: '64px',
+        alignItems: 'stretch',
+        /* Force GPU compositing — fixes iOS Safari scroll jank */
+        transform: 'translateZ(0)',
+        WebkitTransform: 'translateZ(0)',
+        willChange: 'transform',
       }}
     >
-      {/* DISPATCH */}
+      {/* DISPATCH APP */}
       <a
         href="https://23.pepdekker.com"
         target="_blank"
         rel="noopener noreferrer"
-        style={{ ...base, minHeight: '64px' }}
+        style={base}
         onTouchStart={e => { e.currentTarget.style.background = '#377dbd' }}
         onTouchEnd={e => { e.currentTarget.style.background = 'transparent' }}
         onMouseEnter={e => { e.currentTarget.style.background = '#377dbd' }}
         onMouseLeave={e => { e.currentTarget.style.background = 'transparent' }}
       >
         <span style={{ fontSize: '20px', lineHeight: 1 }}>⚓</span>
-        <BtnLabel>Dispatch</BtnLabel>
+        <BtnLabel>Dispatch App</BtnLabel>
       </a>
 
-      {/* Divider */}
-      <div style={{ width: '1px', background: 'rgba(55,125,189,0.4)', margin: '12px 0' }} />
+      <div style={{ width: '1px', background: 'rgba(55,125,189,0.4)', margin: '12px 0', flexShrink: 0 }} />
 
       {/* WORK BOARD */}
       <a
         href="http://ilwu23.com/?screen=2"
         target="_blank"
         rel="noopener noreferrer"
-        style={{ ...base, minHeight: '64px' }}
+        style={base}
         onTouchStart={e => { e.currentTarget.style.background = '#377dbd' }}
         onTouchEnd={e => { e.currentTarget.style.background = 'transparent' }}
         onMouseEnter={e => { e.currentTarget.style.background = '#377dbd' }}
@@ -89,15 +91,13 @@ export default function MobileBottomNav() {
         <BtnLabel>Work Board</BtnLabel>
       </a>
 
-      {/* Divider */}
-      <div style={{ width: '1px', background: 'rgba(55,125,189,0.4)', margin: '12px 0' }} />
+      <div style={{ width: '1px', background: 'rgba(55,125,189,0.4)', margin: '12px 0', flexShrink: 0 }} />
 
       {/* MEMBER HUB */}
       <Link
         to="/member-hub"
         style={{
           ...base,
-          minHeight: '64px',
           background: hubActive ? '#377dbd' : 'transparent',
         }}
         onTouchStart={e => { e.currentTarget.style.background = '#377dbd' }}
@@ -110,4 +110,10 @@ export default function MobileBottomNav() {
       </Link>
     </nav>
   )
+}
+
+// Portal renders directly into <body>, bypassing any flex/transform ancestor
+// that can break position:fixed on iOS Safari
+export default function MobileBottomNav() {
+  return createPortal(<MobileBottomNavInner />, document.body)
 }

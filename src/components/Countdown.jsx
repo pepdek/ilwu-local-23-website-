@@ -38,13 +38,36 @@ export default function Countdown() {
 
   return (
     <div className="mb-8">
-      {/* Label */}
-      <p
-        className="font-body uppercase mb-4"
-        style={{ color: '#fff216', fontSize: '13px', letterSpacing: '2px' }}
-      >
-        Bloody Thursday · July 5 · Spanaway Lake Park
-      </p>
+      {/* Label + flyer link */}
+      <div className="flex flex-wrap items-center gap-3 mb-4">
+        <p
+          className="font-body uppercase"
+          style={{ color: '#fff216', fontSize: '13px', letterSpacing: '2px' }}
+        >
+          Bloody Thursday · July 5 · Spanaway Lake Park
+        </p>
+        <a
+          href="https://www.ilwulocal23.org/_files/ugd/c965b9_c4ca503430ff40a98481f38ed6f7ba5a.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-body font-semibold flex items-center gap-1 transition-opacity hover:opacity-80"
+          style={{
+            color: '#ffffff',
+            fontSize: '11px',
+            letterSpacing: '0.08em',
+            background: 'rgba(255,255,255,0.15)',
+            border: '1px solid rgba(255,255,255,0.3)',
+            padding: '3px 8px',
+            textTransform: 'uppercase',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          View Flyer
+          <svg style={{ width: '10px', height: '10px' }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg>
+        </a>
+      </div>
 
       {/* Tiles — flex row on all sizes, 2×2 removed per mobile spec */}
       <div
