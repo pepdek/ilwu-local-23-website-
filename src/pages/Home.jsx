@@ -85,7 +85,10 @@ export default function Home() {
           </p>
 
           <div className="flex flex-wrap gap-3">
-            <Link to="/member-hub" className="btn-yellow">Member Hub</Link>
+            <Link to="/member-hub" className="btn-yellow"
+              onClick={() => window.posthog?.capture('member_hub_link_clicked', { label: 'Hero CTA' })}>
+              Member Hub
+            </Link>
             <Link to="/history"    className="btn-ghost-white">Our History</Link>
           </div>
         </div>
@@ -112,7 +115,8 @@ export default function Home() {
                 families, and communities. Sign the petition. Make your voice heard.
               </p>
               <div className="flex flex-wrap gap-3">
-                <a href="https://actionnetwork.org/petitions/husky-ai?source=direct_link&" target="_blank" rel="noopener noreferrer" className="btn-yellow">
+                <a href="https://actionnetwork.org/petitions/husky-ai?source=direct_link&" target="_blank" rel="noopener noreferrer" className="btn-yellow"
+                  onClick={() => window.posthog?.capture('petition_clicked')}>
                   Sign the Petition
                 </a>
                 <ShareButton />

@@ -8,6 +8,8 @@ export default function ScrollToTop() {
     if (!hash) {
       window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
     }
+    // Fire pageview on every route change
+    window.posthog?.capture('$pageview', { path: pathname })
   }, [pathname, hash])
   return null
 }

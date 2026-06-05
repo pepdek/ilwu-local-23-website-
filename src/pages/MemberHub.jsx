@@ -17,11 +17,20 @@ const BADGE_COLORS = { PDF: '#377dbd', Sheet: '#1a7f44', Drive: '#1967d2' }
 function Card({ label, href, internal = false }) {
   const badge  = getBadge(href)
   const urlTxt = displayUrl(href)
+
+  function handleClick() {
+    if (href.includes('23.pepdekker.com')) {
+      window.posthog?.capture('dispatch_app_opened')
+    }
+    window.posthog?.capture('member_hub_link_clicked', { label })
+  }
+
   return (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
+      onClick={handleClick}
       className="group flex items-start justify-between gap-3 transition-all duration-150"
       style={{
         background: '#00305b',
