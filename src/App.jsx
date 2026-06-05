@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import ScrollToTop from './components/ScrollToTop'
 import Home from './pages/Home'
 import MemberHub from './pages/MemberHub'
 import News from './pages/News'
@@ -12,7 +13,8 @@ import Contact from './pages/Contact'
 export default function App() {
   return (
     <BrowserRouter>
-      <div className="min-h-screen bg-ilwu-black flex flex-col">
+      <ScrollToTop />
+      <div className="min-h-screen bg-ilwu-dark flex flex-col">
         <Navbar />
         <main className="flex-1">
           <Routes>

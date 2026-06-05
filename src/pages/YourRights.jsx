@@ -1,10 +1,10 @@
 const grievanceSteps = [
-  { n: '01', title: 'Document It',           body: 'Write down dates, times, supervisors, witnesses, and exactly what happened — immediately. Memory fades. Details win grievances.' },
+  { n: '01', title: 'Document It',           body: 'Write down dates, times, supervisors, witnesses, and exactly what happened - immediately. Memory fades. Details win grievances.' },
   { n: '02', title: 'Talk to Your BA',        body: 'Call the hall. Your Business Agent is your first call. They\'ll tell you if you have a grievable issue and walk you through next steps. Don\'t delay.' },
   { n: '03', title: 'File Within the Window', body: 'Most grievances must be filed within 10 days. Missing the deadline waives your right. When in doubt, file first and ask questions after.' },
-  { n: '04', title: 'Step 1 — Local Level',   body: 'Your BA meets with the employer. Many grievances are resolved here. If not, the union advances the case.' },
-  { n: '05', title: 'Step 2 — Area Panel',    body: 'Unresolved grievances go to a joint labor-management panel. An impartial arbitrator may hear the case at this level.' },
-  { n: '06', title: 'What Happens Next',       body: 'Major contract disputes can reach Coast arbitration — binding, precedent-setting decisions that protect all West Coast longshore workers.' },
+  { n: '04', title: 'Step 1 - Local Level',   body: 'Your BA meets with the employer. Many grievances are resolved here. If not, the union advances the case.' },
+  { n: '05', title: 'Step 2 - Area Panel',    body: 'Unresolved grievances go to a joint labor-management panel. An impartial arbitrator may hear the case at this level.' },
+  { n: '06', title: 'What Happens Next',       body: 'Major contract disputes can reach Coast arbitration - binding, precedent-setting decisions that protect all West Coast longshore workers.' },
 ]
 
 const progression = [
@@ -12,7 +12,7 @@ const progression = [
     stage: 'Casual',
     border: 'border-white/20',
     accent: 'text-white/40',
-    desc: 'Entry level. Work is on-call through the dispatch hall. Casuals work to demonstrate skill and reliability. No guaranteed hours. Focus on getting called — and showing up every time.',
+    desc: 'Entry level. Work is on-call through the dispatch hall. Casuals work to demonstrate skill and reliability. No guaranteed hours. Focus on getting called - and showing up every time.',
   },
   {
     stage: 'B Man',
@@ -59,7 +59,7 @@ export default function YourRights() {
               <p className="font-display text-ilwu-navy tracking-[0.2em] text-sm uppercase mb-3">Your Contract</p>
               <h2 className="font-display text-ilwu-navy text-4xl sm:text-5xl uppercase leading-none mb-6">Plain Language CBA Summary</h2>
               <div className="space-y-4 text-ilwu-dark/70 font-body text-base leading-relaxed">
-                <p>The Pacific Coast Longshore and Clerks' Agreement is negotiated between the ILWU and the Pacific Maritime Association (PMA). It covers wages, hours, working conditions, safety, dispatch, and grievance procedures for all West Coast longshore workers — including Local 23 at Tacoma.</p>
+                <p>The Pacific Coast Longshore and Clerks' Agreement is negotiated between the ILWU and the Pacific Maritime Association (PMA). It covers wages, hours, working conditions, safety, dispatch, and grievance procedures for all West Coast longshore workers - including Local 23 at Tacoma.</p>
                 <p>The contract guarantees base pay rates, premium pay for hazardous work, overtime, and shift differentials. No employer can unilaterally change your working conditions without bargaining through the union.</p>
                 <p>Key protections: guaranteed gang pay, established dispatch procedures, safety committee rights, and the right to refuse unsafe work without discipline or retaliation.</p>
               </div>
@@ -71,7 +71,7 @@ export default function YourRights() {
                 { k: 'Overtime',    v: 'Time-and-a-half after 8 hours. Double-time in specific conditions per the contract.' },
                 { k: 'Jurisdiction',v: 'All longshore work on covered docks belongs to ILWU. Management cannot perform bargaining unit work.' },
                 { k: 'Gang Integrity', v: 'Gangs have the right to work together. Arbitrary splitting is a contract violation.' },
-                { k: 'Arbitration', v: 'Unresolved grievances go to binding arbitration — not courts, not management.' },
+                { k: 'Arbitration', v: 'Unresolved grievances go to binding arbitration - not courts, not management.' },
               ].map(item => (
                 <div key={item.k} className="border border-ilwu-border p-5 bg-ilwu-bg">
                   <h3 className="font-body font-bold text-ilwu-navy mb-2 text-sm uppercase tracking-wide">{item.k}</h3>
@@ -108,7 +108,7 @@ export default function YourRights() {
             <div>
               <h4 className="font-body font-bold text-white mb-1">Call the hall before time runs out.</h4>
               <p className="text-white/65 text-sm font-body leading-relaxed mb-2">
-                If you're unsure whether something is grievable — call first, ask questions, then decide. Missing a deadline waives your right to grieve. The cost of a call is zero.
+                If you're unsure whether something is grievable - call first, ask questions, then decide. Missing a deadline waives your right to grieve. The cost of a call is zero.
               </p>
               <p className="font-mono text-ilwu-gold font-medium text-sm">
                 Business Agent: <a href="tel:+12535720220" className="hover:text-yellow-300 transition-colors">(253) 572-0220</a>
@@ -151,7 +151,7 @@ export default function YourRights() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { title: 'Medical',   icon: '🏥', items: ['Full medical for you and eligible dependents', 'Prescription, dental, and vision', 'Mental health coverage', 'ILWU-PMA Welfare Plan — joint trust'] },
+              { title: 'Medical',   icon: '🏥', items: ['Full medical for you and eligible dependents', 'Prescription, dental, and vision', 'Mental health coverage', 'ILWU-PMA Welfare Plan - joint trust'] },
               { title: 'Pension',   icon: '🏦', items: ['ILWU-PMA defined benefit pension', 'Vesting based on covered service years', 'Early retirement options', 'Supplemental Defined Contribution plan'] },
               { title: 'Vacation',  icon: '🌊', items: ['Vacation eligibility by register and hours', 'Lists posted at hall and online', 'Supplemental holiday pay', 'Death benefit through the Welfare Plan'] },
             ].map(b => (

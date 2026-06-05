@@ -14,7 +14,7 @@ export default function Footer() {
             </div>
             <p className="text-white/60 text-sm font-body leading-relaxed">
               International Longshore and Warehouse Union<br />
-              Local 23 — Port of Tacoma, Washington
+              Local 23 - Port of Tacoma, Washington
             </p>
             <p className="text-ilwu-gold font-body font-semibold text-sm mt-4 italic">
               "An Injury to One Is an Injury to All."

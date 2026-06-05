@@ -15,7 +15,7 @@ export default function Contact() {
           <p className="section-label mb-3">Get in Touch</p>
           <h1 className="font-display text-white text-5xl sm:text-7xl uppercase leading-none mb-4">Contact</h1>
           <p className="text-white/65 font-body text-lg max-w-xl">
-            Have a question, a grievance, or a safety concern? The hall is here for you. Don't wait — call.
+            Have a question, a grievance, or a safety concern? The hall is here for you. Don't wait - call.
           </p>
         </div>
       </section>
@@ -114,7 +114,7 @@ export default function Contact() {
               <div className="border border-ilwu-navy/25 bg-ilwu-navy/5 p-6">
                 <h3 className="font-body font-bold text-ilwu-navy text-base mb-2">Urgent: Grievance or Safety Issue?</h3>
                 <p className="text-ilwu-dark/65 font-body text-sm leading-relaxed mb-4">
-                  If you are facing discipline, termination, or an unsafe work condition — call the hall immediately.
+                  If you are facing discipline, termination, or an unsafe work condition - call the hall immediately.
                   Do not respond to management without union representation. Time limits are strict.
                 </p>
                 <p className="text-ilwu-dark/50 font-body text-xs mb-5 italic">

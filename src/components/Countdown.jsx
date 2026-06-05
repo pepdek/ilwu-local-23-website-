@@ -35,7 +35,7 @@ export default function Countdown() {
   if (time.past) {
     return (
       <p className="text-ilwu-gold font-display text-2xl tracking-widest uppercase">
-        Today — Bloody Thursday Commemoration
+        Today - Bloody Thursday Commemoration
       </p>
     )
   }

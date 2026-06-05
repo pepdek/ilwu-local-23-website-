@@ -15,14 +15,14 @@ const cards = [
   },
   {
     icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg>,
-    label: 'Vacation List — A Class',
+    label: 'Vacation List - A Class',
     desc:  'Current A Register vacation list and selections.',
     href:  'https://www.ilwu23.com',
     ext:   true,
   },
   {
     icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg>,
-    label: 'Vacation List — B Class',
+    label: 'Vacation List - B Class',
     desc:  'Current B Register vacation list and selections.',
     href:  'https://www.ilwu23.com',
     ext:   true,
@@ -30,7 +30,7 @@ const cards = [
   {
     icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>,
     label: 'Medical Benefits',
-    desc:  'ILWU-PMA Welfare Plan — coverage, claims, providers.',
+    desc:  'ILWU-PMA Welfare Plan - coverage, claims, providers.',
     href:  'https://www.ilwu-pmabenefits.org',
     ext:   true,
   },
@@ -51,7 +51,7 @@ const cards = [
   {
     icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>,
     label: 'Dispatch App',
-    desc:  'Mobile dispatch — register, check status, get notifications.',
+    desc:  'Mobile dispatch - register, check status, get notifications.',
     href:  '#',
     ext:   false,
   },

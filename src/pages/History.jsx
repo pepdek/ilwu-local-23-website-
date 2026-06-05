@@ -2,49 +2,49 @@ const timeline = [
   {
     year: '1934',
     title: 'West Coast Waterfront Strike',
-    body: 'In May 1934, 35,000 West Coast longshoremen walked off the docks. They were striking for union recognition, hiring hall control, and a six-hour workday. The shipping companies were backed by police and local governments. Workers held the line for 83 days through intimidation, violence, and starvation wages — because they had no other choice.',
+    body: 'In May 1934, 35,000 West Coast longshoremen walked off the docks. They were striking for union recognition, hiring hall control, and a six-hour workday. The shipping companies were backed by police and local governments. Workers held the line for 83 days through intimidation, violence, and starvation wages - because they had no other choice.',
     photo: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=900&q=80&auto=format&fit=crop',
   },
   {
     year: 'Jul 5, 1934',
     title: 'Bloody Thursday',
-    body: 'San Francisco police and National Guardsmen attacked striking longshoremen on the Embarcadero. Six workers were killed. Dozens were wounded. The response was not retreat — it was a city-wide General Strike that shut down San Francisco for four days. The blood spilled on that day paid for every contract we have ever signed. We mark this date every year because it must not be forgotten.',
+    body: 'San Francisco police and National Guardsmen attacked striking longshoremen on the Embarcadero. Six workers were killed. Dozens were wounded. The response was not retreat - it was a city-wide General Strike that shut down San Francisco for four days. The blood spilled on that day paid for every contract we have ever signed. We mark this date every year because it must not be forgotten.',
     photo: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=900&q=80&auto=format&fit=crop',
   },
   {
     year: '1937',
     title: 'ILWU Chartered',
-    body: 'Harry Bridges led the 1934 strike as West Coast director of the ILA. When the ILA failed to honor the gains workers had won, Bridges and West Coast workers broke away to form the International Longshore and Warehouse Union. The ILWU was built on the principle that workers — not employers, not courts, not politicians — determine their own destiny. ILWU Local 23 was chartered to represent longshore workers at the Port of Tacoma.',
+    body: 'Harry Bridges led the 1934 strike as West Coast director of the ILA. When the ILA failed to honor the gains workers had won, Bridges and West Coast workers broke away to form the International Longshore and Warehouse Union. The ILWU was built on the principle that workers - not employers, not courts, not politicians - determine their own destiny. ILWU Local 23 was chartered to represent longshore workers at the Port of Tacoma.',
     photo: 'https://images.unsplash.com/photo-1590946083328-b2e38800e2b3?w=900&q=80&auto=format&fit=crop',
   },
   {
     year: '1950s',
     title: 'Automation Fight Begins',
-    body: 'Containerization and early mechanization began transforming the waterfront in the 1950s. The ILWU negotiated the Mechanization and Modernization Agreement — a landmark deal that traded some acceptance of new technology for income guarantees, early retirement options, and job security provisions. It proved that automation doesn\'t have to mean abandonment. Workers can negotiate the terms.',
+    body: 'Containerization and early mechanization began transforming the waterfront in the 1950s. The ILWU negotiated the Mechanization and Modernization Agreement - a landmark deal that traded some acceptance of new technology for income guarantees, early retirement options, and job security provisions. It proved that automation doesn\'t have to mean abandonment. Workers can negotiate the terms.',
     photo: 'https://images.unsplash.com/photo-1543946207-39bd91e70ca7?w=900&q=80&auto=format&fit=crop',
   },
   {
     year: '1971',
     title: 'Coastwide Strike',
-    body: 'The 1971–72 coastwide work stoppage lasted 134 days — one of the longest labor actions in West Coast maritime history. Workers held out against shipping companies trying to claw back mechanization protections. The resulting agreement secured unprecedented job security provisions. Every time the ILWU has held the line, it has won. Solidarity works.',
+    body: 'The 1971–72 coastwide work stoppage lasted 134 days - one of the longest labor actions in West Coast maritime history. Workers held out against shipping companies trying to claw back mechanization protections. The resulting agreement secured unprecedented job security provisions. Every time the ILWU has held the line, it has won. Solidarity works.',
     photo: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=900&q=80&auto=format&fit=crop',
   },
   {
     year: '2002',
     title: 'Port Lockout',
-    body: 'PMA locked out ILWU workers at ports across the West Coast for 11 days. President Bush invoked the Taft-Hartley Act. The lockout cost the national economy an estimated $1 billion per day — making clear just how much the country depends on the workers who move its cargo. The ILWU went back and eventually negotiated a strong contract. Power is knowing what you\'re worth.',
+    body: 'PMA locked out ILWU workers at ports across the West Coast for 11 days. President Bush invoked the Taft-Hartley Act. The lockout cost the national economy an estimated $1 billion per day - making clear just how much the country depends on the workers who move its cargo. The ILWU went back and eventually negotiated a strong contract. Power is knowing what you\'re worth.',
     photo: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=900&q=80&auto=format&fit=crop',
   },
   {
     year: '2014–2015',
     title: 'Contract Negotiations',
-    body: 'A nine-month negotiation between ILWU and PMA tested the patience of workers and the economy alike. West Coast ports slowed. The federal government again intervened. The eventual contract reflected the ILWU\'s leverage and commitment — but also underscored the constant pressure employers place on waterfront workers. Vigilance never ends.',
+    body: 'A nine-month negotiation between ILWU and PMA tested the patience of workers and the economy alike. West Coast ports slowed. The federal government again intervened. The eventual contract reflected the ILWU\'s leverage and commitment - but also underscored the constant pressure employers place on waterfront workers. Vigilance never ends.',
     photo: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=900&q=80&auto=format&fit=crop',
   },
   {
     year: '2026',
     title: 'Husky Terminal Automation Fight',
-    body: 'SSA Marine is moving to fully automate Husky Terminal at the Port of Tacoma. Automated cranes and driverless yard vehicles would eliminate hundreds of Local 23 jobs. This is the same fight the ILWU has been fighting since the 1950s — technology being used not to improve work but to eliminate workers. Local 23 is fighting it the same way it\'s fought everything else: together, loud, and without apology.',
+    body: 'SSA Marine is moving to fully automate Husky Terminal at the Port of Tacoma. Automated cranes and driverless yard vehicles would eliminate hundreds of Local 23 jobs. This is the same fight the ILWU has been fighting since the 1950s - technology being used not to improve work but to eliminate workers. Local 23 is fighting it the same way it\'s fought everything else: together, loud, and without apology.',
     photo: 'https://images.unsplash.com/photo-1543946207-39bd91e70ca7?w=900&q=80&auto=format&fit=crop',
   },
 ]
@@ -69,7 +69,7 @@ export default function History() {
             <span className="text-ilwu-gold">We Fought For Them.</span>
           </h1>
           <p className="text-white/65 font-body text-lg max-w-2xl leading-relaxed">
-            The wage, the benefits, the safety rules, the grievance procedure — none of it was given.
+            The wage, the benefits, the safety rules, the grievance procedure - none of it was given.
             Every right you have was taken, at great cost, by the workers who came before you.
           </p>
         </div>
