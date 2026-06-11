@@ -174,3 +174,14 @@
     padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px));
   }
 }
+
+/* 6. Board page sticky sub-header — offset accounts for fixed navbar height */
+.board-subbar {
+  position: sticky;
+  top: 64px; /* mobile nav h-16 */
+}
+@media (min-width: 768px) {
+  .board-subbar {
+    top: 80px; /* desktop nav h-20 */
+  }
+}

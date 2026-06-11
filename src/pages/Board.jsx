@@ -72,7 +72,8 @@ function VesselCard({ v }) {
       </div>
 
       <div style={{ fontSize: 12, color: '#9CA3AF', marginTop: 3, marginBottom: 10 }}>
-        {v.terminal}{v.units ? ` · ${v.units}` : ''}
+        {v.terminal ? `Terminal: ${v.terminal}` : ''}
+        {v.units && v.units !== '0' && v.units !== 'update' ? ` · ${v.units} units` : ''}
       </div>
 
       <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
@@ -85,12 +86,12 @@ function VesselCard({ v }) {
 
       <div style={{ marginTop: 10 }}>
         <a
-          href={`https://www.marinetraffic.com/en/ais/home/shipname/${encodeURIComponent(v.vessel)}`}
+          href={`https://www.vesselfinder.com/?name=${encodeURIComponent(v.vessel)}`}
           target="_blank"
           rel="noopener noreferrer"
           style={{ fontSize: 11, color: '#377dbd', fontFamily: "'DM Mono', monospace", fontWeight: 600 }}
         >
-          ⚓ TRACK ON MARINETRAFFIC →
+          ⚓ TRACK ON VESSELFINDER →
         </a>
       </div>
     </div>
@@ -143,12 +144,10 @@ export default function Board() {
   const updatedLabel = timeSince(lastUpdated)
 
   return (
-    <div style={{ background: '#F7F6F2', minHeight: '100vh', paddingBottom: 80 }}>
+    <div className="pt-16 md:pt-20" style={{ background: '#F7F6F2', minHeight: '100vh', paddingBottom: 80 }}>
 
       {/* Sticky sub-bar: shift toggle + date line */}
-      <div style={{
-        position: 'sticky',
-        top: 64,
+      <div className="board-subbar" style={{
         zIndex: 39,
         background: '#00305b',
         borderBottom: '1px solid rgba(55,125,189,0.3)',
@@ -274,20 +273,35 @@ export default function Board() {
         {/* House work */}
         {!loading && boardData && boardData.houseItems.length > 0 && (
           <section style={{ marginBottom: 24 }}>
-            <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 13, color: '#00305b',
-              letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 10 }}>
-              House Work
+            {/* Section header — yellow accent so it reads clearly as a different category */}
+            <div style={{
+              display: 'flex', alignItems: 'center', gap: 8,
+              borderLeft: '4px solid #fff216', paddingLeft: 10, marginBottom: 10,
+            }}>
+              <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 15, color: '#00305b',
+                letterSpacing: '0.12em', textTransform: 'uppercase', lineHeight: 1 }}>
+                🏗 House Work
+              </div>
+              <span style={{
+                fontFamily: "'DM Mono', monospace", fontSize: 9, fontWeight: 700,
+                background: '#FFF9C4', color: '#92400E', borderRadius: 4,
+                padding: '2px 6px', textTransform: 'uppercase', letterSpacing: '0.06em',
+              }}>
+                No vessel · Shore-side only
+              </span>
             </div>
-            <div style={{ background: '#fff', borderRadius: 12, border: '1.5px solid #E8E5DC', overflow: 'hidden' }}>
+            <div style={{ background: '#fff', borderRadius: 12,
+              border: '1.5px solid #E8E5DC', borderTop: '3px solid #fff216', overflow: 'hidden' }}>
               {boardData.houseItems.map((item, i) => (
                 <div
                   key={i}
                   style={{
-                    padding: '11px 14px',
+                    padding: '12px 14px',
                     borderBottom: i < boardData.houseItems.length - 1 ? '1px solid #F0EDE4' : 'none',
                     fontSize: 13,
                     color: '#374151',
                     fontFamily: "'DM Sans', sans-serif",
+                    lineHeight: 1.5,
                   }}
                 >
                   {item}
