@@ -107,7 +107,8 @@ function timeSince(date) {
 }
 
 export default function Board() {
-  const [shift, setShift]           = useState('night')
+  const params = new URLSearchParams(window.location.search)
+  const [shift, setShift]           = useState(params.get('shift') || 'night')
   const [boardData, setBoardData]   = useState(null)
   const [loading, setLoading]       = useState(true)
   const [error, setError]           = useState(null)
