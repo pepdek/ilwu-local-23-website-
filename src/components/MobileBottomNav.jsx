@@ -38,7 +38,9 @@ const divider = (
 )
 
 function MobileBottomNavInner() {
-  const { pathname } = useLocation()
+  const { pathname, search } = useLocation()
+  const shift = new URLSearchParams(search).get('shift')
+  const onBoard = pathname === '/board'
 
   const externalBtn = (href, icon, label) => (
     <a
@@ -56,22 +58,19 @@ function MobileBottomNavInner() {
     </a>
   )
 
-  const internalBtn = (to, icon, label) => {
-    const active = pathname === to
-    return (
-      <Link
-        to={to}
-        style={{ ...base, background: active ? '#377dbd' : 'transparent' }}
-        onTouchStart={e => { e.currentTarget.style.background = '#377dbd' }}
-        onTouchEnd={e => { e.currentTarget.style.background = active ? '#377dbd' : 'transparent' }}
-        onMouseEnter={e => { e.currentTarget.style.background = '#377dbd' }}
-        onMouseLeave={e => { e.currentTarget.style.background = active ? '#377dbd' : 'transparent' }}
-      >
-        <span style={{ fontSize: '18px', lineHeight: 1 }}>{icon}</span>
-        <BtnLabel>{label}</BtnLabel>
-      </Link>
-    )
-  }
+  const internalBtn = (to, icon, label, active) => (
+    <Link
+      to={to}
+      style={{ ...base, background: active ? '#377dbd' : 'transparent' }}
+      onTouchStart={e => { e.currentTarget.style.background = '#377dbd' }}
+      onTouchEnd={e => { e.currentTarget.style.background = active ? '#377dbd' : 'transparent' }}
+      onMouseEnter={e => { e.currentTarget.style.background = '#377dbd' }}
+      onMouseLeave={e => { e.currentTarget.style.background = active ? '#377dbd' : 'transparent' }}
+    >
+      <span style={{ fontSize: '18px', lineHeight: 1 }}>{icon}</span>
+      <BtnLabel>{label}</BtnLabel>
+    </Link>
+  )
 
   return (
     <nav
@@ -94,9 +93,11 @@ function MobileBottomNavInner() {
     >
       {externalBtn('https://checkmyspins.com', '⚓', 'Dispatch App')}
       {divider}
-      {internalBtn('/board', '📋', 'Work Board')}
+      {internalBtn('/board?shift=day',   '☀️', 'Day Work',   onBoard && shift === 'day')}
       {divider}
-      {internalBtn('/member-hub', '☰', 'Member Hub')}
+      {internalBtn('/board?shift=night', '🌙', 'Night Work', onBoard && (shift === 'night' || !shift))}
+      {divider}
+      {internalBtn('/member-hub', '☰', 'Member Hub', pathname === '/member-hub')}
     </nav>
   )
 }
