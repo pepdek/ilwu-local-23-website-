@@ -19,25 +19,43 @@ const base = {
 
 function BtnLabel({ children }) {
   return (
-    <span
-      style={{
-        fontFamily: '"DM Sans", sans-serif',
-        fontWeight: 600,
-        color: '#ffffff',
-        fontSize: '10px',
-        textTransform: 'uppercase',
-        letterSpacing: '1px',
-        lineHeight: 1,
-      }}
-    >
+    <span style={{
+      fontFamily: '"DM Sans", sans-serif',
+      fontWeight: 600,
+      color: '#ffffff',
+      fontSize: '9px',
+      textTransform: 'uppercase',
+      letterSpacing: '0.07em',
+      lineHeight: 1,
+    }}>
       {children}
     </span>
   )
 }
 
+const divider = (
+  <div style={{ width: '1px', background: 'rgba(55,125,189,0.4)', margin: '12px 0', flexShrink: 0 }} />
+)
+
 function MobileBottomNavInner() {
   const { pathname } = useLocation()
   const hubActive = pathname === '/member-hub'
+
+  const externalBtn = (href, icon, label) => (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      style={base}
+      onTouchStart={e => { e.currentTarget.style.background = '#377dbd' }}
+      onTouchEnd={e => { e.currentTarget.style.background = 'transparent' }}
+      onMouseEnter={e => { e.currentTarget.style.background = '#377dbd' }}
+      onMouseLeave={e => { e.currentTarget.style.background = 'transparent' }}
+    >
+      <span style={{ fontSize: '18px', lineHeight: 1 }}>{icon}</span>
+      <BtnLabel>{label}</BtnLabel>
+    </a>
+  )
 
   return (
     <nav
@@ -53,67 +71,34 @@ function MobileBottomNavInner() {
         paddingBottom: 'env(safe-area-inset-bottom, 0px)',
         display: 'flex',
         alignItems: 'stretch',
-        /* Force GPU compositing — fixes iOS Safari scroll jank */
         transform: 'translateZ(0)',
         WebkitTransform: 'translateZ(0)',
         willChange: 'transform',
       }}
     >
-      {/* DISPATCH APP */}
-      <a
-        href="https://23.pepdekker.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        style={base}
-        onTouchStart={e => { e.currentTarget.style.background = '#377dbd' }}
-        onTouchEnd={e => { e.currentTarget.style.background = 'transparent' }}
-        onMouseEnter={e => { e.currentTarget.style.background = '#377dbd' }}
-        onMouseLeave={e => { e.currentTarget.style.background = 'transparent' }}
-      >
-        <span style={{ fontSize: '20px', lineHeight: 1 }}>⚓</span>
-        <BtnLabel>Dispatch App</BtnLabel>
-      </a>
+      {externalBtn('https://23.pepdekker.com',       '⚓', 'Dispatch App')}
+      {divider}
+      {externalBtn('http://ilwu23.com/?screen=2',    '☀️', 'Day Work')}
+      {divider}
+      {externalBtn('http://ilwu23.com/?screen=1',    '🌙', 'Night Work')}
+      {divider}
 
-      <div style={{ width: '1px', background: 'rgba(55,125,189,0.4)', margin: '12px 0', flexShrink: 0 }} />
-
-      {/* WORK BOARD */}
-      <a
-        href="http://ilwu23.com/?screen=2"
-        target="_blank"
-        rel="noopener noreferrer"
-        style={base}
-        onTouchStart={e => { e.currentTarget.style.background = '#377dbd' }}
-        onTouchEnd={e => { e.currentTarget.style.background = 'transparent' }}
-        onMouseEnter={e => { e.currentTarget.style.background = '#377dbd' }}
-        onMouseLeave={e => { e.currentTarget.style.background = 'transparent' }}
-      >
-        <span style={{ fontSize: '20px', lineHeight: 1 }}>📋</span>
-        <BtnLabel>Work Board</BtnLabel>
-      </a>
-
-      <div style={{ width: '1px', background: 'rgba(55,125,189,0.4)', margin: '12px 0', flexShrink: 0 }} />
-
-      {/* MEMBER HUB */}
+      {/* Member Hub — internal route */}
       <Link
         to="/member-hub"
-        style={{
-          ...base,
-          background: hubActive ? '#377dbd' : 'transparent',
-        }}
+        style={{ ...base, background: hubActive ? '#377dbd' : 'transparent' }}
         onTouchStart={e => { e.currentTarget.style.background = '#377dbd' }}
         onTouchEnd={e => { e.currentTarget.style.background = hubActive ? '#377dbd' : 'transparent' }}
         onMouseEnter={e => { e.currentTarget.style.background = '#377dbd' }}
         onMouseLeave={e => { e.currentTarget.style.background = hubActive ? '#377dbd' : 'transparent' }}
       >
-        <span style={{ fontSize: '20px', lineHeight: 1 }}>☰</span>
+        <span style={{ fontSize: '18px', lineHeight: 1 }}>☰</span>
         <BtnLabel>Member Hub</BtnLabel>
       </Link>
     </nav>
   )
 }
 
-// Portal renders directly into <body>, bypassing any flex/transform ancestor
-// that can break position:fixed on iOS Safari
 export default function MobileBottomNav() {
   return createPortal(<MobileBottomNavInner />, document.body)
 }
