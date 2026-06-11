@@ -1,5 +1,5 @@
 import { createPortal } from 'react-dom'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 
 const base = {
   flex: 1,
@@ -39,7 +39,6 @@ const divider = (
 
 function MobileBottomNavInner() {
   const { pathname } = useLocation()
-  const hubActive = pathname === '/member-hub'
 
   const externalBtn = (href, icon, label) => (
     <a
@@ -56,6 +55,23 @@ function MobileBottomNavInner() {
       <BtnLabel>{label}</BtnLabel>
     </a>
   )
+
+  const internalBtn = (to, icon, label) => {
+    const active = pathname === to
+    return (
+      <Link
+        to={to}
+        style={{ ...base, background: active ? '#377dbd' : 'transparent' }}
+        onTouchStart={e => { e.currentTarget.style.background = '#377dbd' }}
+        onTouchEnd={e => { e.currentTarget.style.background = active ? '#377dbd' : 'transparent' }}
+        onMouseEnter={e => { e.currentTarget.style.background = '#377dbd' }}
+        onMouseLeave={e => { e.currentTarget.style.background = active ? '#377dbd' : 'transparent' }}
+      >
+        <span style={{ fontSize: '18px', lineHeight: 1 }}>{icon}</span>
+        <BtnLabel>{label}</BtnLabel>
+      </Link>
+    )
+  }
 
   return (
     <nav
@@ -76,25 +92,11 @@ function MobileBottomNavInner() {
         willChange: 'transform',
       }}
     >
-      {externalBtn('https://23.pepdekker.com',       '⚓', 'Dispatch App')}
+      {externalBtn('https://checkmyspins.com', '⚓', 'Dispatch App')}
       {divider}
-      {externalBtn('http://ilwu23.com/?screen=2',    '☀️', 'Day Work')}
+      {internalBtn('/board', '📋', 'Work Board')}
       {divider}
-      {externalBtn('http://ilwu23.com/?screen=1',    '🌙', 'Night Work')}
-      {divider}
-
-      {/* Member Hub — internal route */}
-      <Link
-        to="/member-hub"
-        style={{ ...base, background: hubActive ? '#377dbd' : 'transparent' }}
-        onTouchStart={e => { e.currentTarget.style.background = '#377dbd' }}
-        onTouchEnd={e => { e.currentTarget.style.background = hubActive ? '#377dbd' : 'transparent' }}
-        onMouseEnter={e => { e.currentTarget.style.background = '#377dbd' }}
-        onMouseLeave={e => { e.currentTarget.style.background = hubActive ? '#377dbd' : 'transparent' }}
-      >
-        <span style={{ fontSize: '18px', lineHeight: 1 }}>☰</span>
-        <BtnLabel>Member Hub</BtnLabel>
-      </Link>
+      {internalBtn('/member-hub', '☰', 'Member Hub')}
     </nav>
   )
 }

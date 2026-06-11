@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 // Badge + URL helpers
 function getBadge(href) {
   if (href.includes('.pdf')) return 'PDF'
@@ -14,32 +16,20 @@ function displayUrl(href) {
 }
 const BADGE_COLORS = { PDF: '#377dbd', Sheet: '#1a7f44', Drive: '#1967d2' }
 
-function Card({ label, href, internal = false }) {
-  const badge  = getBadge(href)
-  const urlTxt = displayUrl(href)
+function Card({ label, href, internal = false, isNew = false, subtitle = null }) {
+  const isRoute = href.startsWith('/')
+  const badge   = isRoute ? null : getBadge(href)
+  const urlTxt  = isRoute ? href : displayUrl(href)
 
   function handleClick() {
-    if (href.includes('23.pepdekker.com')) {
+    if (href.includes('checkmyspins.com')) {
       window.posthog?.capture('dispatch_app_opened')
     }
     window.posthog?.capture('member_hub_link_clicked', { label })
   }
 
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      onClick={handleClick}
-      className="group flex items-start justify-between gap-3 transition-all duration-150"
-      style={{
-        background: '#00305b',
-        borderLeft: '3px solid #377dbd',
-        padding: '0.875rem 1rem',
-      }}
-      onMouseEnter={e => { e.currentTarget.style.borderLeftColor = '#fff216' }}
-      onMouseLeave={e => { e.currentTarget.style.borderLeftColor = '#377dbd' }}
-    >
+  const inner = (
+    <>
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 flex-wrap">
           <span className="font-body font-semibold text-white text-sm leading-tight">{label}</span>
@@ -51,13 +41,22 @@ function Card({ label, href, internal = false }) {
               {badge}
             </span>
           )}
-          {internal && (
+          {isNew && (
+            <span className="font-mono text-[9px] uppercase tracking-wider px-1.5 py-0.5 flex-shrink-0"
+              style={{ background: '#059669', color: '#fff', letterSpacing: '0.06em' }}>
+              NEW
+            </span>
+          )}
+          {internal && !isNew && (
             <span className="font-mono text-[9px] uppercase tracking-wider px-1.5 py-0.5 flex-shrink-0"
               style={{ background: 'rgba(255,242,22,0.15)', color: '#fff216', border: '1px solid rgba(255,242,22,0.3)' }}>
               Internal
             </span>
           )}
         </div>
+        {subtitle && (
+          <p className="font-body text-white/50 mt-0.5" style={{ fontSize: '11px' }}>{subtitle}</p>
+        )}
         <p className="font-mono text-white/35 mt-1 truncate" style={{ fontSize: '10px' }}>{urlTxt}</p>
       </div>
       <svg
@@ -68,6 +67,45 @@ function Card({ label, href, internal = false }) {
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5}
           d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
       </svg>
+    </>
+  )
+
+  const sharedStyle = {
+    background: '#00305b',
+    borderLeft: '3px solid #377dbd',
+    padding: '0.875rem 1rem',
+    textDecoration: 'none',
+  }
+  const hoverHandlers = {
+    onMouseEnter: e => { e.currentTarget.style.borderLeftColor = '#fff216' },
+    onMouseLeave: e => { e.currentTarget.style.borderLeftColor = '#377dbd' },
+  }
+
+  if (isRoute) {
+    return (
+      <Link
+        to={href}
+        onClick={handleClick}
+        className="group flex items-start justify-between gap-3 transition-all duration-150"
+        style={sharedStyle}
+        {...hoverHandlers}
+      >
+        {inner}
+      </Link>
+    )
+  }
+
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      onClick={handleClick}
+      className="group flex items-start justify-between gap-3 transition-all duration-150"
+      style={sharedStyle}
+      {...hoverHandlers}
+    >
+      {inner}
     </a>
   )
 }
@@ -92,9 +130,8 @@ const groups = [
   {
     label: 'Work Boards',
     cards: [
-      { label: 'Day Work Board',  href: 'http://ilwu23.com/?screen=2' },
-      { label: 'Night Work Board', href: 'http://ilwu23.com/?screen=1' },
-      { label: 'Dispatch App',    href: 'https://23.pepdekker.com', internal: true },
+      { label: 'Work Board', href: '/board', isNew: true, subtitle: 'Night + Day dispatch — mobile view' },
+      { label: 'Dispatch App', href: 'https://checkmyspins.com' },
     ],
   },
   {

@@ -10,6 +10,7 @@ import YourRights from './pages/YourRights'
 import Leadership from './pages/Leadership'
 import History from './pages/History'
 import Contact from './pages/Contact'
+import Board from './pages/Board'
 
 export default function App() {
   return (
@@ -26,6 +27,7 @@ export default function App() {
             <Route path="/leadership" element={<Leadership />} />
             <Route path="/history" element={<History />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/board" element={<Board />} />
           </Routes>
         </main>
         <Footer />
