@@ -98,26 +98,28 @@ function VesselCard({ v }) {
 
 function VesselHeader({ count }) {
   return (
-    <div style={{ background: '#00305b', padding: '8px 16px', marginBottom: 10 }}>
-      <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 13, color: '#fff', letterSpacing: 2 }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
+      <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 12, letterSpacing: 2, color: '#00305b', whiteSpace: 'nowrap' }}>
         VESSEL WORK
       </span>
-      <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, color: '#377dbd', marginLeft: 12 }}>
-        {count} ship{count !== 1 ? 's' : ''}
-      </span>
+      {count > 0 && (
+        <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, color: '#9CA3AF' }}>
+          {count} ships
+        </span>
+      )}
+      <div style={{ flex: 1, height: 1, background: '#E8E5DC' }} />
     </div>
   )
 }
 
 function HouseHeader() {
   return (
-    <div style={{ background: '#F7F6F2', border: '1px solid #E8E5DC', padding: '8px 16px', marginBottom: 10, marginTop: 20 }}>
-      <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 13, color: '#00305b', letterSpacing: 2 }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: 10, margin: '28px 0 12px' }}>
+      <div style={{ flex: 1, height: 1, background: '#E8E5DC' }} />
+      <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 12, letterSpacing: 2, color: '#6B7280', whiteSpace: 'nowrap' }}>
         HOUSE WORK
       </span>
-      <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, color: '#6B7280', marginLeft: 12 }}>
-        Shore-side only
-      </span>
+      <div style={{ flex: 1, height: 1, background: '#E8E5DC' }} />
     </div>
   )
 }
