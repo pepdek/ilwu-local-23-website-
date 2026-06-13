@@ -8,139 +8,56 @@ function terminalColor(t) {
   return map[t?.toUpperCase()] || '#00305b'
 }
 
-function parseBoard(html) {
+// ─── PARSING ─────────────────────────────────────────────────────────────────
+// Shared row extractor — works on any HTML chunk that contains a <table>.
+// Returns an array of raw cell arrays (12 cols each).
+function extractRows(html) {
   const parser = new DOMParser()
   const doc    = parser.parseFromString(html, 'text/html')
-  const rows   = [...doc.querySelectorAll('table tr')].slice(1)
-  const vessels = rows.map(row => {
-    const cells = [...row.querySelectorAll('td')].map(td => td.textContent.trim())
-    return {
-      vessel:    cells[0]  || '',
-      terminal:  cells[1]  || '',
-      units:     cells[2]  || '',
-      cranes:    cells[3]  || '',
-      xmen:      cells[4]  || '',
-      skxmen:    cells[5]  || '',
-      pd:        cells[6]  || '',
-      lasher:    cells[7]  || '',
-      startTime: cells[11] || '',
-    }
-  }).filter(v => v.vessel && v.vessel !== 'VESSEL' && v.vessel !== 'update')
+  return [...doc.querySelectorAll('table tr')].map(row =>
+    [...row.querySelectorAll('td')].map(td => td.textContent.trim())
+  ).filter(cells => cells.length >= 12 && cells[0] && cells[0] !== 'VESSEL' && cells[0] !== 'update')
+}
 
-  const houseItems = [...doc.querySelectorAll('ul li')].map(li =>
-    li.textContent.replace(/update/gi, '').trim().replace(/\s+/g, ' ')
-  ).filter(Boolean)
+function parseBoard(html) {
+  // Split at the HOUSE WORK heading so we parse each section independently
+  const housePos   = html.search(/<h1[^>]*>[\s\S]*?HOUSE\s+WORK[\s\S]*?<\/h1>/i)
+  const vesselHtml = housePos > -1 ? html.slice(0, housePos) : html
+  const houseHtml  = housePos > -1 ? html.slice(housePos)    : ''
 
-  const headings = [...doc.querySelectorAll('h1')].map(h => h.textContent.trim())
+  const vessels = extractRows(vesselHtml).map(cells => ({
+    vessel:    cells[0],
+    terminal:  cells[1]  || '',
+    units:     cells[2]  || '',   // e.g. "4-NEW", "2-BACK"
+    cranes:    cells[3]  || '',
+    xmen:      cells[4]  || '',
+    skxmen:    cells[5]  || '',
+    pd:        cells[6]  || '',
+    lasher:    cells[7]  || '',
+    bus:       cells[8]  || '',   // e.g. "17 HUST", "16 STRAD"
+    startTime: cells[11] || '',
+  }))
+
+  // House rows share the same 12-col structure.
+  // col[0]=location, cols[2-10]=details, col[11]=start time.
+  const houseRows = extractRows(houseHtml).map(cells => ({
+    name:      cells[0],
+    details:   cells.slice(2, 11).filter(c => isValid(c)),
+    startTime: cells[11] || '',
+  }))
+
+  // Date and shift from the top-level headings in the full document
+  const docFull    = new DOMParser().parseFromString(html, 'text/html')
+  const headings   = [...docFull.querySelectorAll('h1')].map(h => h.textContent.trim())
   const date  = headings[0] || ''
   const shift = headings[1] || ''
 
-  return { date, shift, vessels, houseItems }
+  return { date, shift, vessels, houseRows }
 }
 
-function Badge({ label, value, color, bg }) {
-  return (
-    <div style={{ background: bg, borderRadius: 6, padding: '8px 12px',
-      display: 'flex', gap: 4, alignItems: 'center' }}>
-      <span style={{ fontSize: 9, fontWeight: 700, color, textTransform: 'uppercase',
-        letterSpacing: '0.5px' }}>{label}</span>
-      <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 18, color,
-        lineHeight: 1 }}>{value}</span>
-    </div>
-  )
-}
-
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
 function isValid(v) {
-  return v && v !== 'update' && v !== '0'
-}
-
-function VesselCard({ v }) {
-  const color = terminalColor(v.terminal)
-  return (
-    <div style={{ background: '#fff', borderRadius: 12, border: '1.5px solid #E8E5DC',
-      borderLeft: `4px solid ${color}`, padding: '14px 16px', marginBottom: 10 }}>
-
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-        <div style={{ fontWeight: 700, fontSize: 15, color: '#00305b' }}>{v.vessel}</div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0, marginLeft: 8 }}>
-          {v.startTime && (
-            <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 13, color: '#00305b',
-              fontWeight: 700, background: '#F7F6F2', borderRadius: 6, padding: '3px 8px',
-              whiteSpace: 'nowrap' }}>
-              {v.startTime}
-            </div>
-          )}
-          <a href={`https://www.marinetraffic.com/en/ais/home/shipname/${encodeURIComponent(v.vessel)}`}
-            target="_blank" rel="noopener noreferrer"
-            style={{ fontSize: 16, textDecoration: 'none', padding: '2px 4px' }}
-            title="Track on MarineTraffic"
-            aria-label={`Track ${v.vessel} on MarineTraffic`}>
-            ⚓
-          </a>
-        </div>
-      </div>
-
-      <div style={{ fontSize: 12, color: '#6B7280', marginTop: 3, marginBottom: 10 }}>
-        {v.terminal ? `Terminal: ${v.terminal}` : ''}
-        {v.units && v.units !== '0' && v.units !== 'update' ? ` · ${v.units} units` : ''}
-      </div>
-
-      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-        {isValid(v.cranes) && <Badge label="CR"   value={v.cranes} color="#1D4ED8" bg="#EFF6FF" />}
-        {isValid(v.xmen)   && <Badge label="X"    value={v.xmen}   color="#059669" bg="#ECFDF5" />}
-        {isValid(v.skxmen) && <Badge label="SK-X" value={v.skxmen} color="#059669" bg="#ECFDF5" />}
-        {isValid(v.pd)     && <Badge label="PD"   value={v.pd}     color="#D97706" bg="#FFFBEB" />}
-        {isValid(v.lasher) && <Badge label="LASH" value={v.lasher} color="#7C3AED" bg="#F5F3FF" />}
-      </div>
-    </div>
-  )
-}
-
-function VesselHeader({ count }) {
-  return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
-      <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 12, letterSpacing: 2, color: '#00305b', whiteSpace: 'nowrap' }}>
-        VESSEL WORK
-      </span>
-      {count > 0 && (
-        <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, color: '#9CA3AF' }}>
-          {count} ships
-        </span>
-      )}
-      <div style={{ flex: 1, height: 1, background: '#E8E5DC' }} />
-    </div>
-  )
-}
-
-function HouseHeader() {
-  return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 10, margin: '28px 0 12px' }}>
-      <div style={{ flex: 1, height: 1, background: '#E8E5DC' }} />
-      <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 12, letterSpacing: 2, color: '#6B7280', whiteSpace: 'nowrap' }}>
-        HOUSE WORK
-      </span>
-      <div style={{ flex: 1, height: 1, background: '#E8E5DC' }} />
-    </div>
-  )
-}
-
-function HouseList({ items }) {
-  return (
-    <div style={{ background: '#fff', borderRadius: 12, border: '1.5px solid #E8E5DC', overflow: 'hidden' }}>
-      {items.map((item, i) => (
-        <div key={i} style={{
-          padding: '12px 14px',
-          borderBottom: i < items.length - 1 ? '1px solid #F0EDE4' : 'none',
-          fontSize: 13,
-          color: '#374151',
-          fontFamily: "'DM Sans', sans-serif",
-          lineHeight: 1.5,
-        }}>
-          {item}
-        </div>
-      ))}
-    </div>
-  )
+  return v && v !== 'update' && v !== '0' && v !== '&nbsp;'
 }
 
 function timeSince(date) {
@@ -162,6 +79,135 @@ function useWindowWidth() {
   return w
 }
 
+// ─── BADGE ───────────────────────────────────────────────────────────────────
+function Badge({ label, value, color, bg }) {
+  return (
+    <div style={{ background: bg, borderRadius: 6, padding: '8px 12px',
+      display: 'flex', gap: label ? 4 : 0, alignItems: 'center' }}>
+      {label && (
+        <span style={{ fontSize: 9, fontWeight: 700, color, textTransform: 'uppercase',
+          letterSpacing: '0.5px' }}>{label}</span>
+      )}
+      <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 18, color,
+        lineHeight: 1 }}>{value}</span>
+    </div>
+  )
+}
+
+// ─── VESSEL CARD ─────────────────────────────────────────────────────────────
+function VesselCard({ v }) {
+  const color = terminalColor(v.terminal)
+  return (
+    <div style={{ background: '#fff', borderRadius: 12, border: '1.5px solid #E8E5DC',
+      borderLeft: `4px solid ${color}`, padding: '14px 16px', marginBottom: 10 }}>
+
+      {/* Row 1: vessel name + ⚓ tracker */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+        <div style={{ fontWeight: 700, fontSize: 15, color: '#00305b' }}>{v.vessel}</div>
+        <a href={`https://www.marinetraffic.com/en/ais/home/shipname/${encodeURIComponent(v.vessel)}`}
+          target="_blank" rel="noopener noreferrer"
+          style={{ fontSize: 16, textDecoration: 'none', padding: '2px 4px', flexShrink: 0, marginLeft: 8 }}
+          title="Track on MarineTraffic"
+          aria-label={`Track ${v.vessel} on MarineTraffic`}>
+          ⚓
+        </a>
+      </div>
+
+      {/* Row 2: start time (promoted left) + terminal */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 5, marginBottom: 10, flexWrap: 'wrap' }}>
+        {v.startTime && (
+          <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 13, fontWeight: 700,
+            color: '#00305b', background: '#EFF6FF', borderRadius: 6, padding: '2px 8px',
+            whiteSpace: 'nowrap' }}>
+            {v.startTime}
+          </span>
+        )}
+        {v.terminal && (
+          <span style={{ fontSize: 12, color: '#6B7280' }}>{v.terminal}</span>
+        )}
+      </div>
+
+      {/* Row 3: badges — UNITS lead (dark), then roles, then BUS */}
+      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+        {isValid(v.units)  && <Badge label=""     value={v.units}  color="#fff"    bg="#374151" />}
+        {isValid(v.cranes) && <Badge label="CR"   value={v.cranes} color="#1D4ED8" bg="#EFF6FF" />}
+        {isValid(v.xmen)   && <Badge label="X"    value={v.xmen}   color="#059669" bg="#ECFDF5" />}
+        {isValid(v.skxmen) && <Badge label="SK-X" value={v.skxmen} color="#059669" bg="#ECFDF5" />}
+        {isValid(v.pd)     && <Badge label="PD"   value={v.pd}     color="#D97706" bg="#FFFBEB" />}
+        {isValid(v.lasher) && <Badge label="LASH" value={v.lasher} color="#7C3AED" bg="#F5F3FF" />}
+        {isValid(v.bus)    && <Badge label="BUS"  value={v.bus}    color="#fff"    bg="#0891B2" />}
+      </div>
+    </div>
+  )
+}
+
+// ─── HOUSE CARD ──────────────────────────────────────────────────────────────
+// No color stripe, no tracker — shore-side work only.
+function HouseCard({ h }) {
+  return (
+    <div style={{ background: '#fff', borderRadius: 12, border: '1.5px solid #E8E5DC',
+      padding: '14px 16px', marginBottom: 10 }}>
+
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 8 }}>
+        <div style={{ fontWeight: 700, fontSize: 14, color: '#00305b' }}>{h.name}</div>
+        {h.startTime && (
+          <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 12, fontWeight: 700,
+            color: '#00305b', background: '#F7F6F2', borderRadius: 6, padding: '2px 8px',
+            whiteSpace: 'nowrap', flexShrink: 0, marginLeft: 8 }}>
+            {h.startTime}
+          </span>
+        )}
+      </div>
+
+      {h.details.length > 0 && (
+        <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+          {h.details.map((d, i) => (
+            <span key={i} style={{
+              background: '#F3F4F6', borderRadius: 6, padding: '5px 9px',
+              fontSize: 11, fontWeight: 600, color: '#374151',
+              fontFamily: "'DM Mono', monospace",
+            }}>
+              {d}
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+// ─── SECTION HEADERS ─────────────────────────────────────────────────────────
+function VesselHeader({ count }) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
+      <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 12, letterSpacing: 2,
+        color: '#00305b', whiteSpace: 'nowrap' }}>
+        VESSEL WORK
+      </span>
+      {count > 0 && (
+        <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, color: '#9CA3AF' }}>
+          {count} ships
+        </span>
+      )}
+      <div style={{ flex: 1, height: 1, background: '#E8E5DC' }} />
+    </div>
+  )
+}
+
+function HouseHeader() {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 10, margin: '28px 0 12px' }}>
+      <div style={{ flex: 1, height: 1, background: '#E8E5DC' }} />
+      <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 12, letterSpacing: 2,
+        color: '#6B7280', whiteSpace: 'nowrap' }}>
+        HOUSE WORK
+      </span>
+      <div style={{ flex: 1, height: 1, background: '#E8E5DC' }} />
+    </div>
+  )
+}
+
+// ─── BOARD ───────────────────────────────────────────────────────────────────
 export default function Board() {
   const params = new URLSearchParams(window.location.search)
   const [shift, setShift]             = useState(params.get('shift') || 'night')
@@ -197,8 +243,8 @@ export default function Board() {
     return () => clearInterval(id)
   }, [])
 
-  const vessels      = boardData?.vessels    ?? []
-  const houseItems   = boardData?.houseItems ?? []
+  const vessels    = boardData?.vessels   ?? []
+  const houseRows  = boardData?.houseRows ?? []
   const updatedLabel = timeSince(lastUpdated)
 
   return (
@@ -279,18 +325,17 @@ export default function Board() {
           )}
 
           {/* Mobile: house work below vessels */}
-          {!isDesktop && !loading && houseItems.length > 0 && (
+          {!isDesktop && !loading && houseRows.length > 0 && (
             <>
               <HouseHeader />
-              <HouseList items={houseItems} />
+              {houseRows.map((h, i) => <HouseCard key={i} h={h} />)}
             </>
           )}
 
           {/* Footer */}
           {!loading && (
             <div style={{ textAlign: 'center', padding: '24px 16px', borderTop: '1px solid #E8E5DC', marginTop: 16 }}>
-              <a
-                href={`http://ilwu23.com/?screen=${shift === 'night' ? '1' : '2'}`}
+              <a href={`http://ilwu23.com/?screen=${shift === 'night' ? '1' : '2'}`}
                 target="_blank" rel="noopener noreferrer"
                 style={{ fontSize: 12, color: '#377dbd', fontWeight: 600, textDecoration: 'none' }}>
                 View official board at ilwu23.com ↗
@@ -327,10 +372,10 @@ export default function Board() {
               </div>
             )}
 
-            {!loading && houseItems.length > 0 && (
+            {!loading && houseRows.length > 0 && (
               <>
                 <HouseHeader />
-                <HouseList items={houseItems} />
+                {houseRows.map((h, i) => <HouseCard key={i} h={h} />)}
               </>
             )}
           </div>
