@@ -6,7 +6,7 @@ exports.handler = async function(event) {
     const html = await res.text();
     return {
       statusCode: 200,
-      headers: { 'Content-Type':'text/html', 'Access-Control-Allow-Origin':'*', 'Cache-Control':'public, max-age=300' },
+      headers: { 'Content-Type':'text/html', 'Access-Control-Allow-Origin':'*', 'Cache-Control':'public, s-maxage=300, max-age=300, stale-while-revalidate=60' },
       body: html,
     };
   } catch(e) {

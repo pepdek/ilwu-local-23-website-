@@ -12,53 +12,64 @@ function terminalColor(t) {
 // ─── PARSING ─────────────────────────────────────────────────────────────────
 // Mirror the dispatch app's proven regex approach so &nbsp; is handled
 // correctly (DOMParser turns &nbsp; into   which is truthy, not "").
-function extractRows(html) {
-  const re = /<td><a[^>]*>([\s\S]*?)<\/a><\/td>/g
-  const cells = []
-  let m
-  while ((m = re.exec(html)) !== null) {
-    const v = m[1].trim()
-    cells.push(v === '&nbsp;' || v === '' ? '' : v)
-  }
-  const rows = []
-  for (let i = 0; i + 12 <= cells.length; i += 12) {
-    const row = cells.slice(i, i + 12)
-    if (!row[0] || row[0] === 'VESSEL' || row[0] === 'update') continue
-    rows.push(row)
-  }
-  return rows
+// clean: strip "update" noise and non-breaking spaces
+function clean(s) {
+  return (s || '').replace(/update/gi, '').replace(/ /g, ' ').trim()
 }
 
 function parseBoard(html) {
-  // Split at HOUSE WORK heading, parse each half with the same row extractor
-  const housePos   = html.search(/<h1[^>]*>[\s\S]*?HOUSE\s+WORK[\s\S]*?<\/h1>/i)
-  const vesselHtml = housePos > -1 ? html.slice(0, housePos) : html
-  const houseHtml  = housePos > -1 ? html.slice(housePos)    : ''
+  const doc = new DOMParser().parseFromString(html, 'text/html')
 
-  // Pull date + shift from headings
-  const dateMatch  = html.match(/<h1[^>]*>[\s\S]*?([\d/]+)[\s\S]*?<\/h1>/i)
-  const shiftMatch = html.match(/<h1[^>]*>[\s\S]*?((?:NIGHT|DAY)\s+WORK)[\s\S]*?<\/h1>/i)
-  const date  = dateMatch?.[1]  ?? ''
-  const shift = shiftMatch?.[1] ?? ''
+  // Date + shift from h1 headings
+  const h1s  = [...doc.querySelectorAll('h1')].map(h => h.textContent.trim())
+  const date  = h1s[0] || ''
+  const shift = h1s.find(h => /NIGHT|DAY/i.test(h)) || h1s[1] || ''
 
-  const vessels = extractRows(vesselHtml).map(cells => ({
-    vessel:    cells[0],
-    terminal:  cells[1]  || '',
-    units:     cells[2]  || '',   // "4-NEW", "2-BACK"
-    cranes:    cells[3]  || '',
-    xmen:      cells[4]  || '',
-    skxmen:    cells[5]  || '',
-    pd:        cells[6]  || '',
-    lasher:    cells[7]  || '',
-    bus:       cells[8]  || '',   // "17 HUST", "16 STRAD"
-    startTime: cells[11] || '',
-  }))
+  // Find the HOUSE WORK divider — check headings, bold, table cells, paragraphs
+  let houseMarker = null
+  for (const el of doc.querySelectorAll('h1,h2,h3,h4,b,strong,td,th,p')) {
+    if (/house\s*work/i.test(el.textContent) && el.textContent.trim().length < 50) {
+      houseMarker = el
+      break
+    }
+  }
 
-  const houseRows = extractRows(houseHtml).map(cells => ({
-    name:      cells[0],
-    details:   cells.slice(2, 11).filter(c => isValid(c)),
-    startTime: cells[11] || '',
-  }))
+  const vessels   = []
+  const houseRows = []
+
+  for (const table of doc.querySelectorAll('table')) {
+    // Any table that appears after the house-work marker in DOM order is house work
+    const isHouse = houseMarker != null &&
+      !!(houseMarker.compareDocumentPosition(table) & Node.DOCUMENT_POSITION_FOLLOWING)
+
+    for (const row of table.querySelectorAll('tr')) {
+      const cells = [...row.querySelectorAll('td')].map(td => clean(td.textContent))
+      const name  = cells[0]
+      if (!name || /^vessel$/i.test(name) || /^terminal$/i.test(name) ||
+          /house\s*work/i.test(name)) continue
+
+      if (isHouse) {
+        houseRows.push({
+          name,
+          details:   cells.slice(1, 11).filter(c => isValid(c)),
+          startTime: clean(cells[11] || cells[cells.length - 1] || ''),
+        })
+      } else {
+        vessels.push({
+          vessel:    name,
+          terminal:  cells[1]  || '',
+          units:     cells[2]  || '',
+          cranes:    cells[3]  || '',
+          xmen:      cells[4]  || '',
+          skxmen:    cells[5]  || '',
+          pd:        cells[6]  || '',
+          lasher:    cells[7]  || '',
+          bus:       cells[8]  || '',
+          startTime: cells[11] || '',
+        })
+      }
+    }
+  }
 
   return { date, shift, vessels, houseRows }
 }
